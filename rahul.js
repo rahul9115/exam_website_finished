@@ -1,7 +1,9 @@
-var a=0
-function call(){
-    a=1;
-    
+var a="rahul"
+var str="";
+for (var i=0;i<a.length;i++){
+ if (a[i]=='h')
+    break
+  else
+    str=str+a[i];  
 }
-call()
-console.log(a)
+console.log(str)

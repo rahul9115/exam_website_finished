@@ -116,12 +116,12 @@ class exam extends Component{
         const formData = new FormData();
         formData.append('file', this.state.input);
           a=this.state.input;
-        axios({url:'http://localhost:5000/api/submit', method:"POST",headers:{authorization:"your token"},data:formData})
+        axios({url:'/api/submit', method:"POST",headers:{authorization:"your token"},data:formData})
         .then(response => console.log(response))
         .catch(() => console.log('Error creating new course'));
         console.log("Questions",this.state.input1);
         axios.post("/api/submit2",{questions:this.state.input1}).then(response=>console.log(response)).catch(()=>console.log('Error creating questions'))
-
+        this.delete 
     }   
     questions=(evt)=>{
         
