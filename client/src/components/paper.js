@@ -21,11 +21,14 @@ var a2=[];
 var q=" ";
 var a3=[];
 var j=0;
+var value=[];
+var m=0;
 class paper extends Component{
     constructor(props){
         super(props);
         this.state={
-            input:null
+            input:null,
+            value
         }
     }
     call(){
@@ -49,6 +52,15 @@ class paper extends Component{
         console.log(a3)
         return a3;
       
+    }
+    async call3(){
+        
+        const res=await axios.get("/api/output1");
+       
+         value.push(res.data._id);
+         m=res.data._id;
+         console.log(m);
+         return m;
     }
     options(){
         
@@ -96,8 +108,15 @@ class paper extends Component{
        console.log(a[0])
        var str4='"'+a[0]+'"';
        console.log(str);
-        switch (this.props.auth) {
-            case null:
+       console.log(m)
+       var m1=[]
+       this.call3().then(data=>{
+        this.state.value=data
+    });
+    
+       
+        switch (this.state.value) {
+            case undefined:
                 return <Body />;
             case false:
                 return <Body />;
@@ -139,7 +158,9 @@ class paper extends Component{
 
 
         }
+    
     }
+
     render(){
         console.log(this.props.auth);
         return(

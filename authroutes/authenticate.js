@@ -44,14 +44,37 @@ app.use(bodyParser.urlencoded({ extended: true }));
         a=req.body.profile;
     })
     app.get('/auth/google/callback', passport.authenticate('google'),(req,res)=>{
-       if (a=="teacher")
+       if (a=="teacher"){
+       
+        app.get('/api/output', (req, res) => {
+
+            console
+            info=req.user;
+            
+            res.send(req.user);
+            
+    
+        });   
         res.redirect("/login");
-       else
-       res.redirect("/paper");
+    }
+       if(a=="student"){
+        app.get('/api/output1', (req, res) => {
+            app.get('/api/output', (req, res) => {
+    
+               
+                
+                res.send("");
+                
         
+            });   
+            info=req.user;
+            
+            res.send(req.user);
+    })
+    res.redirect("/paper");
     }
         
-    );
+ });
     app.get("/api/logout", (req, res) => {
         req.logout();
         app.get("/api/output",(req,res)=>{
@@ -60,15 +83,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
         res.redirect("/");
     });
     var info="";
-    app.get('/api/output', (req, res) => {
-
+    
         
-        info=req.user;
-        
-        res.send(req.user);
-        
-
-    });
+       
     app.post('/api/stack',(req,res)=>{
         var answers=req.body;
         

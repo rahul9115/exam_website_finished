@@ -1,9 +1,7 @@
 var a="rahul"
 var str="";
-for (var i=0;i<a.length;i++){
- if (a[i]=='h')
-    break
-  else
-    str=str+a[i];  
+function yo(){
+  a="akanksha";
 }
-console.log(str)
+yo()
+console.log(a)
