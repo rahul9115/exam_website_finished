@@ -187,10 +187,11 @@ app.get("/api/submit3",(req,res)=>{
     if(info.googleId!=undefined){
     File.findOne({pdf_id:googleId},(err,user)=>{
         if(user!=null){
-        student.findOne({pdf_id:googleId}).then((existingUser)=>{
-            if(existingUser){
-                alert("Sorry bruh you have already submitted a response");    
-            }else{
+        student.findOne({pdf_id:googleId,_id:info.googleId}).then((existingUser)=>{
+            console.log(existingUser);
+           
+                console.log("in")
+                new student({_id:info.googleId,email:info.email[0].value,pdf_id:googleId}).save();
                 const params={
                     Bucket:"exam-rahul-vemuri-12",
                     Key:user.pdf_id
@@ -210,7 +211,7 @@ app.get("/api/submit3",(req,res)=>{
          })
         teacher_answers1=user.answers; 
         console.log("teacher",teacher_answers1)
-            }
+           
         })
         
         
@@ -243,12 +244,12 @@ var score=0;
                 }
             }
         }
-console.log(score)
+        student.findOne({_id:info.googleId}).then(()=>{
+            new student({student_score:score}).save();
+        })
+      
+})
 
-})
-app.get("/api/score1",(res,req)=>{
-    res.send({student_score:score});
-})
 
 }
     
