@@ -38,6 +38,12 @@
     },
     "/api/answers": {
       "target": "http://localhost:5000/"
+    },
+    "/api/submit5": {
+      "target": "http://localhost:5000/"
+    },
+    "/api/score": {
+      "target": "http://localhost:5000/"
     }
   },
   "dependencies": {
