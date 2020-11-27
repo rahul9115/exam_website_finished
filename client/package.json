@@ -44,6 +44,9 @@
     },
     "/api/score": {
       "target": "http://localhost:5000/"
+    },
+    "/api/score1": {
+      "target": "http://localhost:5000/"
     }
   },
   "dependencies": {

@@ -52,7 +52,7 @@ class exam extends Component{
         <label style={{padding:10,marginRight:10,marginTop:100 }}>{i}</label> 
         
       <select id="cars" name={i} onChange={evt=>this.give(evt)}>
-      <option value="" ></option>      
+      <option value=" " ></option>      
     <option value="A" >A</option>
     <option value="B">B</option>
     <option value="C">C</option>
@@ -81,7 +81,7 @@ class exam extends Component{
    
    
    
-        for (i=0;i<this.state.input1;i++)
+        for (i=1;i<=this.state.input1;i++)
         a1[i]=this.optionscall(i);
        console.log(q_no[0],a1); 
       return  a1;  
@@ -129,7 +129,10 @@ class exam extends Component{
         this.show()
     }
     pdf=()=>{
-        this.setState({element:<div className="modal-content"><a class="close" href="#" onClick={this.delete}>&times;</a><a className="options" onClick={this.show2}>+ Add answers</a><input className="pdf" type="file" placeholder="Add pdf" required  onChange={evt => this.updateInputValue(evt)}></input><input type="number" className="pdf2" placeholder="Enter the number questions" onChange={evt=>this.questions(evt)} required></input> <button onClick={this.onFileChange} className="ok1">Ok</button></div>,style:{display:'block'}})
+        this.setState({element:<div className="modal-content"><a class="close" href="#" onClick={this.delete}>&times;</a><input className="pdf" type="file" placeholder="Add pdf" required  onChange={evt => this.updateInputValue(evt)}></input><input type="number" className="pdf2" placeholder="Enter the number questions" onChange={evt=>this.questions(evt)} required></input><a className="options" onClick={this.show2}>+ Add answers</a> <button onClick={this.onFileChange} className="ok1">Ok</button></div>,style:{display:'block'}})
+    }
+    show3=()=>{
+        this.setState({element:<a className="options" onClick={this.show2}>+ Add answers</a>,style:{display:'block'}});
     }
     delete2=()=>{
         this.pdf()
@@ -144,7 +147,7 @@ class exam extends Component{
     
     onFileChange=()=>{
       
-        
+        console.log(this.state.input)  
         const formData = new FormData();
         formData.append('file', this.state.input);
           a=this.state.input;

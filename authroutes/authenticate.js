@@ -5,10 +5,11 @@ const fs=require('fs');
 var FileManager = require('file-storage');
 require('../models/file')
 require('../models/student')
-const student=mongoose.model('student');
+
 const mongoose=require('mongoose');
 const { Binary } = require('mongodb');
 const File=mongoose.model('files');
+const student=mongoose.model('student');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -17,12 +18,13 @@ var axios=require("axios");
 const AWS=require('aws-sdk');
 const crypto=require("crypto");
 const multer=require("multer");
+const { CostExplorer } = require('aws-sdk');
 const mongouri="mongodb+srv://rahul:rahul@cluster0.rpfjy.mongodb.net/<dbname>?retryWrites=true&w=majority";
 const conn =mongoose.createConnection(mongouri);
 var id="";
 const s3=new AWS.S3({
-    accessKeyId:process.env.AWS_ID,
-    secretAccessKey:process.env.AWS_SECRET,
+    accessKeyId:"AKIAJA6OIEW5BCTHPWKA",
+    secretAccessKey:"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",
 })
 
 const storage=multer.memoryStorage({
@@ -119,12 +121,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
     var teacher_answers=[];
     var student_answers=[];
     app.post("/api/submit5",(req,res)=>{
-    
+        console.log(req.body)
         teacher_answers=req.body;
     });
     app.post("/api/answers",(req,res)=>{
+        console.log(req.body)
         student_answers=req.body
     })  
+    
     app.post('/api/submit',(req,res)=>{
         
         
@@ -142,7 +146,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
         }
         s3.upload(params,(error,data)=>{
                 if(error){
-                    res.status(500).send(error);
+                    console.log(error)
                 }
                 res.status(200).send(data);
         })
@@ -204,7 +208,8 @@ app.get("/api/submit3",(req,res)=>{
                 }
                 res.send({user1:user.name,q:user.questions,url1:url});
          })
-        teacher_answers1=user.teacher_answers; 
+        teacher_answers1=user.answers; 
+        console.log("teacher",teacher_answers1)
             }
         })
         
@@ -221,17 +226,28 @@ app.get("/api/submit3",(req,res)=>{
 })
 
 var score=0;
-app.get("/api/score",(req,res)=>{
-    for(var i=0;i<teacher_answers1.length;i++){
-        for(var j=0;j<student_answers;j++){
-            if(teacher_answers1[i].q_no==student_answers[j].q_no){
-                if(teacher_answers1[i].answers==student_answers[j].answers)
-                    score=score+1;
+
+ 
+    
+
+        
+    
+    app.get("/api/score",(req,res)=>{
+        console.log("teacher",teacher_answers1,student_answers);
+        for(var i=0;i<teacher_answers1.length;i++){
+            for(var j=0;j<student_answers.length;j++){
+                if(teacher_answers1[i].q_no==student_answers[j].q_no){
+                    console.log(teacher_answers1[i].q_no,student_answers[i].q_no)
+                    if(teacher_answers1[i].answer==student_answers[j].answer)
+                        score=score+1;
+                }
             }
         }
-    }
-    new student({student_score:score})
-    res.send({score_student:score});
+console.log(score)
+
+})
+app.get("/api/score1",(res,req)=>{
+    res.send({student_score:score});
 })
 
 }

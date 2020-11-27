@@ -1,3 +1,2 @@
-var a=["rahul","Vemuri"]
-a.splice(1)
-console.log(a)
+var a=[{"q_no":"C","q_no1":"Vemuri"}];
+console.log(a[0].q_no);

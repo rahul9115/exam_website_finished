@@ -113,7 +113,7 @@ class paper extends Component{
    
    
    
-    for (var i=0;i<a3[0];i++)
+    for (var i=1;i<=a3[0];i++)
     a1[i]=this.options(i);
   return  a1;  
    }
@@ -155,7 +155,7 @@ class paper extends Component{
                     <input placeholder="Enter the Id" onChange={evt=>this.id(evt)}></input>
                     <a href="/api/submit3">Begin Exam</a>
                     
-                    <a href="#" onClick={this.answers}>Submit Exam</a>
+                    <a href="/api/score" onClick={this.answers}>Submit Exam</a>
                     <a href="/api/logout"><i class="fas fa-sign-out-alt"></i>Logout</a>
                   
                     </div>
