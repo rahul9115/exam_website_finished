@@ -5,11 +5,13 @@ const fs=require('fs');
 var FileManager = require('file-storage');
 require('../models/file')
 require('../models/student')
+require('../models/answer')
 
 const mongoose=require('mongoose');
 const { Binary } = require('mongodb');
 const File=mongoose.model('files');
 const student=mongoose.model('student');
+const answer=mongoose.model('answers');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -244,8 +246,12 @@ var score=0;
                 }
             }
         }
-        student.findOne({_id:info.googleId}).then(()=>{
-            new student({student_score:score}).save();
+        answer.findOne({_id:info.googleId,pdf_id:googleId}).then((user)=>{
+            if(user){
+                alert("You have already submitted")
+            }else{
+                new answer({_id:info.googleId,email:info.email[0].value,pdf_id:googleId,student_score:score}).save();
+            }
         })
       
 })
