@@ -1,7 +1,3 @@
-var a="rahul"
-var str="";
-function yo(){
-  a="akanksha";
-}
-yo()
+var a=["rahul","Vemuri"]
+a.splice(1)
 console.log(a)

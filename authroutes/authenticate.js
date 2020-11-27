@@ -39,42 +39,42 @@ app.use(bodyParser.urlencoded({ extended: true }));
     app.get('/auth/google', passport.authenticate('google', {
         scope: ['email', 'profile']
     }));
-    app.post("/api/state",(req,res)=>{
-        console.log("This",req.body.profile);
-        a=req.body.profile;
-    })
+   
     app.get('/auth/google/callback', passport.authenticate('google'),(req,res)=>{
+        app.post("/api/state",(req,res)=>{
+            console.log("This",req.body.profile);
+            a=req.body.profile;
+        })
        if (a=="teacher"){
        
-        app.get('/api/output', (req, res) => {
-
-            console
-            info=req.user;
-            
-            res.send(req.user);
-            
-    
-        });   
+       
         res.redirect("/login");
     }
-       if(a=="student"){
+       else{
         app.get('/api/output1', (req, res) => {
-            app.get('/api/output', (req, res) => {
-    
-               
-                
-                res.send("");
-                
-        
-            });   
+            console.log("wolabbi")
+            
             info=req.user;
             
             res.send(req.user);
-    })
+            
+        
+        });  
     res.redirect("/paper");
     }
-        
+
  });
+ 
+ app.get('/api/output', (req, res) => {
+    console.log("wolabbi")
+    
+    info=req.user;
+    
+    res.send(req.user);
+    
+
+});   
+ 
     app.get("/api/logout", (req, res) => {
         req.logout();
         app.get("/api/output",(req,res)=>{
@@ -84,7 +84,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
     });
     var info="";
     
-        
+    app.post("/api/answers",(req,res)=>{
+        console.log(req.body);
+    })  
        
     app.post('/api/stack',(req,res)=>{
         var answers=req.body;
@@ -164,9 +166,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 })
 var googleId="";
-app.post("/api/submit3",(req,res)=>{
+app.post("/api/submit4",(req,res)=>{
     googleId=req.body.id;
     console.log("This id",googleId);
+})
+app.post("/api/submit5",(req,res)=>{
+    
+    console.log("This id",req.body);
 })
 app.get("/api/submit3",(req,res)=>{
     console.log(googleId)

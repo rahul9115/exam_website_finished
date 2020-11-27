@@ -12,6 +12,10 @@ import parse from "html-react-parser";
 import {useForm} from "react-hook-form";
 import axios from "axios";
 var a="";
+var q_no=[];
+var a1=[];
+var i=0;
+var answers=[];
 class exam extends Component{
         
     constructor(props){
@@ -42,25 +46,53 @@ class exam extends Component{
             
         
     }
+    optionscall(i){
+        console.log(q_no[0])
+        return <div className="select">    
+        <label style={{padding:10,marginRight:10,marginTop:100 }}>{i}</label> 
+        
+      <select id="cars" name={i} onChange={evt=>this.give(evt)}>
+      <option value="" ></option>      
+    <option value="A" >A</option>
+    <option value="B">B</option>
+    <option value="C">C</option>
+    <option value="D">D</option>
+  </select>
+      
+        
+
+        
+      
+      </div>
+    }
+    give(evt){
+        for(var i=0;i<answers.length;i++){
+            if (answers[i].q_no==evt.target.name){
+                answers.splice(i);
+
+            }
+        }
+        answers.push({q_no:evt.target.name,answer:evt.target.value});
+        console.log(answers);
+    }
+    option1(){
+  
+    
+   
+   
+   
+        for (i=0;i<this.state.input1;i++)
+        a1[i]=this.optionscall(i);
+       console.log(q_no[0],a1); 
+      return  a1;  
+       }
     show2=()=>{
         this.setState({element:<div className="modal-content"><a class="close1" href="#" onClick={this.delete2}>&times;</a> <br></br>
         
-        <h1>Enter the choices</h1>
+        <h1>Enter the answers</h1>
 
-        <CKEditor editor={ClassicEditor} value={this.state.data1}  onChange={(event,editor)=>{
-            const data=editor.getData();
-            this.onsubmit1(data);
-
-        }}
-            ></CKEditor>
-            <h1>Enter the answer</h1>
-            <CKEditor editor={ClassicEditor} value={this.state.data} onChange={(evt,editor) =>{
-                const data=editor.getData()
-                console.log(typeof(data))
-                this.onsubmit(data)
-            } }
-            ></CKEditor>
-            
+        
+            {this.option1()}
             <button onClick={this.pdf} className="ok">Ok</button>
             </div>,style:{display:'block'}})
             
@@ -97,7 +129,7 @@ class exam extends Component{
         this.show()
     }
     pdf=()=>{
-        this.setState({element:<div className="modal-content"><a class="close" href="#" onClick={this.delete}>&times;</a><a className="options" onClick={this.show2}>+ Add options and answers</a><input className="pdf" type="file" placeholder="Add pdf" required  onChange={evt => this.updateInputValue(evt)}></input><input type="number" className="pdf2" placeholder="Enter the number questions" onChange={evt=>this.questions(evt)} required></input> <button onClick={this.onFileChange} className="ok1">Ok</button></div>,style:{display:'block'}})
+        this.setState({element:<div className="modal-content"><a class="close" href="#" onClick={this.delete}>&times;</a><a className="options" onClick={this.show2}>+ Add answers</a><input className="pdf" type="file" placeholder="Add pdf" required  onChange={evt => this.updateInputValue(evt)}></input><input type="number" className="pdf2" placeholder="Enter the number questions" onChange={evt=>this.questions(evt)} required></input> <button onClick={this.onFileChange} className="ok1">Ok</button></div>,style:{display:'block'}})
     }
     delete2=()=>{
         this.pdf()
@@ -121,6 +153,7 @@ class exam extends Component{
         .catch(() => console.log('Error creating new course'));
         console.log("Questions",this.state.input1);
         axios.post("/api/submit2",{questions:this.state.input1}).then(response=>console.log(response)).catch(()=>console.log('Error creating questions'))
+        axios.post("/api/submit5",answers).then(response=>console.log(response)).catch(()=>console.log('Error creating questions'))
         this.delete 
     }   
     questions=(evt)=>{
@@ -128,6 +161,7 @@ class exam extends Component{
         this.setState({
             input1: evt.target.value
           });
+          
     }    
     
    
