@@ -121,7 +121,7 @@ class paper extends Component{
        this.setState({
           input :evt.target.value
        });
-       axios({url:'http://localhost:5000/api/submit4', method:"POST",headers:{authorization:"your token"},data:{id:evt.target.value}})
+       axios({url:'/api/submit3', method:"POST",headers:{authorization:"your token"},data:{id:evt.target.value}})
        .then(response => console.log(response))
    }
    answers=()=>{
@@ -141,7 +141,7 @@ class paper extends Component{
     });
     console.log(this.state.value,a[0],a3[0])
        
-        switch (this.state.value) {
+        switch (this.props.auth) {
             case null:
                 return ;
             case false:
@@ -153,7 +153,7 @@ class paper extends Component{
                
                     <div id="mySidenav" class="sidenav">
                     <input placeholder="Enter the Id" onChange={evt=>this.id(evt)}></input>
-                    <a href="/api/submit3">Begin Exam</a>
+                    <a href="/paper">Begin Exam</a>
                     
                     <a href="/api/score" onClick={this.answers}>Submit Exam</a>
                     <a href="/api/logout"><i class="fas fa-sign-out-alt"></i>Logout</a>
