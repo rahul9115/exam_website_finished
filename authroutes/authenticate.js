@@ -22,8 +22,13 @@ const conn =mongoose.createConnection(mongouri);
 var id="";
 
 const s3=new AWS.S3({
+<<<<<<< HEAD
     accessKeyId:
     secretAccessKey:
+=======
+    accessKeyId:process.env.AWS_ID,
+    secretAccessKey:process.env.AWS_KEY
+>>>>>>> ded1a5db2b464a319d31b30f6db0241aa9b4efe7
 })
 
 const storage=multer.memoryStorage({
