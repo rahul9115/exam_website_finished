@@ -25,8 +25,8 @@ const mongouri="mongodb+srv://rahul:rahul@cluster0.rpfjy.mongodb.net/<dbname>?re
 const conn =mongoose.createConnection(mongouri);
 var id="";
 const s3=new AWS.S3({
-    accessKeyId:,
-    secretAccessKey:
+    accessKeyId:"AKIA3KD7LTNJREFAH45Z",
+    secretAccessKey:"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"
 })
 
 const storage=multer.memoryStorage({
