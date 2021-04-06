@@ -5,11 +5,6 @@ import {connect} from "react-redux";
 import css from "./css/exam.css";
 import image from "./images/log.png";
 import Body from "./body";
-import RGF from 'react-google-forms';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import CKEditor from '@ckeditor/ckeditor5-react';
-import parse from "html-react-parser";
-import {useForm} from "react-hook-form";
 import axios from "axios";
 var a="";
 var q_no=[];
@@ -41,8 +36,7 @@ class exam extends Component{
     }  
     show1=()=>{
         this.setState({element:<div className="modal-content"><a class="close1" href="#" onClick={this.delete1}>&times;</a> <br></br>
-        <CKEditor editor={ClassicEditor}  
-            ></CKEditor></div>,style:{display:'block'}})
+        </div>,style:{display:'block'}})
             
         
     }
@@ -98,30 +92,8 @@ class exam extends Component{
             
         
     }
-    onsubmit1=(data) =>{
-       
-
-        console.log("form submitted", data);
- 
-        
-         axios.post('http://localhost:5000/api/stack1', parse(data))
-             .then(response => console.log(response.data))
-             .catch(() => console.log('Error creating new course'))
- 
-         
-     }
-    onsubmit =(data) =>{
-       
-
-       console.log("form submitted", data);
-
-       
-        axios.post('http://localhost:5000/api/stack', parse(data))
-            .then(response => console.log(response.data))
-            .catch(() => console.log('Error creating new course'))
-
-        
-    }
+   
+   
     delete=()=>{
         this.setState({element:null,style:{display:'none'}});
     }
@@ -157,7 +129,7 @@ class exam extends Component{
         console.log("Questions",this.state.input1);
         axios.post("/api/submit2",{questions:this.state.input1}).then(response=>console.log(response)).catch(()=>console.log('Error creating questions'))
         axios.post("/api/submit5",answers).then(response=>console.log(response)).catch(()=>console.log('Error creating questions'))
-        this.delete 
+        
     }   
     questions=(evt)=>{
         

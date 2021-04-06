@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/rahul9115/exam4#readme",
   "dependencies": {
-    "aws-sdk": "^2.791.0",
+    "aws-sdk": "^2.877.0",
     "axios": "^0.21.0",
     "body-parser": "^1.19.0",
     "concurrently": "^3.6.1",
